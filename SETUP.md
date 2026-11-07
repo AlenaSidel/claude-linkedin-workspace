@@ -18,7 +18,7 @@ From an empty folder to a ready project. About 15 minutes of work plus up to a d
 **Option B — with git:**
 
 ```bash
-git clone <repository URL> LinkedIn
+git clone https://github.com/AlenaSidel/claude-linkedin-workspace.git LinkedIn
 ```
 
 The folder should contain: `README.md`, `SETUP.md`, `CLAUDE.md`, `.gitignore` and the `scripts/` folder.

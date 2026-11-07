@@ -4,6 +4,8 @@ Turn your LinkedIn data into a tidy folder you can work on with Claude: your pro
 
 No coding needed — Claude does the technical part for you.
 
+> Unofficial project, not affiliated with or endorsed by LinkedIn.
+
 ## Quick start
 
 ### Step 1. Download this project
@@ -74,6 +76,7 @@ Something went wrong? See the Troubleshooting section in **[SETUP.md](SETUP.md#t
 ├── CLAUDE.md          rules for Claude
 ├── README.md          this file
 ├── SETUP.md           detailed setup guide
+├── LICENSE            MIT license
 ├── scripts/
 │   └── build.py       build script
 ├── raw/               source archive (not worked with directly)
@@ -137,3 +140,7 @@ These archive files stay in `raw/` only:
 ## Privacy
 
 The `raw/`, `profile/`, `content/` and `activity/` folders contain personal data and are excluded from git via `.gitignore`. Do not remove these lines from `.gitignore` if you plan to publish your copy of the project.
+
+## License
+
+[MIT](LICENSE)

@@ -19,7 +19,9 @@
 - Store each post in a separate file in `content/posts/`.
 - Store comments by month: one file per month in `content/comments/`.
 - Store each conversation in a separate file in `activity/network/messages/`.
-- File names in the working folders are lowercase, words separated by `_` (e.g. `endorsements_received.csv`).
+- File names in the working folders are lowercase, words separated by `_` (e.g. `endorsements_received.csv`). Exceptions:
+  - dated files start with an ISO date and use `-` inside the text part: `YYYY-MM-DD_beginning-of-post.md`, `YYYY-MM.md`;
+  - folder indexes are named `README.md`.
 - Do not put obvious information such as file counts into README — only structure and rules.
 - The working folders are built by `scripts/build.py`. Make structural changes in the script, not by hand in the generated files.
 

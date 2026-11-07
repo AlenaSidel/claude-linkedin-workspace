@@ -109,7 +109,9 @@ def copy_csv(src, dst, skip_preamble=False, drop_cols=()):
 def about(s):
     s = clean(s)
     s = re.sub(r"\s*•\s*", "\n• ", s)
-    s = re.sub(r"(?<=[a-z.,;:)])(?=[A-Z\U0001D5D4-\U0001D627])", "\n\n", s)
+    s = re.sub(r"(?<=[.,;:)])(?=[A-Z\U0001D5D4-\U0001D627])", "\n\n", s)
+    # glued paragraphs like "SystemsOpen": lowercase followed by a capitalised word (keeps "AutoML" intact)
+    s = re.sub(r"(?<=[a-z])(?=[A-Z][a-z]|[\U0001D5D4-\U0001D627])", "\n\n", s)
     return s.strip()
 
 # short tables: original CSVs, file names unified to lowercase_snake_case
