@@ -1,0 +1,9 @@
+# Personal data: the raw LinkedIn export and everything built from it
+raw/
+profile/
+content/
+activity/
+
+# System files
+.DS_Store
+__pycache__/
