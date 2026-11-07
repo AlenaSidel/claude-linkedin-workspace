@@ -53,6 +53,8 @@ More: [SETUP.md, step 6](SETUP.md#step-6-run-the-build) — running it yourself,
 
 ### Later: updating with fresh data
 
+> ⚠️ **The project is a snapshot of your current LinkedIn data.** Every update deletes `profile/`, `content/` and `activity/` completely and builds them again from scratch. **All changes you made in these folders, and any files you added there, will be lost.** Keep your own files (notes, drafts, plans) in a separate folder.
+
 Repeat steps 2–3 to get a new archive, then ask Claude:
 
 > Rebuild the project with the new archive.

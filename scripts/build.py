@@ -3,17 +3,22 @@
 Run from the project root:
     python3 scripts/build.py                        # uses the newest archive in raw/
     python3 scripts/build.py raw/<archive-folder>   # uses a specific archive
+    python3 scripts/build.py --yes                  # rebuild without the confirmation prompt
 
-Creates or overwrites: profile/, content/posts/, content/comments/, content/articles/, activity/.
-The source archive in raw/ is never modified. Files missing from a new export are not deleted.
+The project is a snapshot of the current export. Every build deletes
+profile/, content/ and activity/ completely and builds them again from scratch.
+Any changes or files of your own in these folders are lost - keep them elsewhere.
+The source archive in raw/ is never modified.
 """
-import csv, re, html, glob, os, sys, io, unicodedata
+import csv, re, html, glob, os, sys, io, shutil, unicodedata
 from datetime import datetime
 from collections import defaultdict
 
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if len(sys.argv) > 1:
-    R = os.path.abspath(sys.argv[1])
+args = [a for a in sys.argv[1:] if a not in ("--yes", "-y")]
+assume_yes = len(args) != len(sys.argv) - 1
+if args:
+    R = os.path.abspath(args[0])
 else:
     found = sorted(glob.glob(os.path.join(root, "raw", "*LinkedInDataExport*")), key=os.path.getmtime)
     if not found:
@@ -26,6 +31,26 @@ if not os.path.isfile(os.path.join(R, "Profile.csv")):
 if not os.path.isfile(os.path.join(R, "Shares.csv")):
     sys.exit("Shares.csv not found - this is the Basic archive, without posts and comments. "
              "Wait for the second email from LinkedIn and download the Complete archive (see SETUP.md, step 3).")
+
+GENERATED = ["profile", "content", "activity"]
+existing = [d for d in GENERATED if os.path.isdir(os.path.join(root, d))]
+if existing and not assume_yes:
+    print("\nWARNING: this is a rebuild. The project is a snapshot of the current export,")
+    print("so the following folders will be DELETED and built again from scratch:")
+    for d in existing:
+        print("  -", d + "/")
+    print("All changes and any files you added there will be lost. Keep your own files outside these folders.")
+    if not sys.stdin.isatty():
+        sys.exit("Not running interactively. Re-run with --yes to confirm the rebuild.")
+    try:
+        answer = input("Continue? [y/N] ")
+    except (EOFError, KeyboardInterrupt):
+        answer = ""
+    if answer.strip().lower() not in ("y", "yes"):
+        sys.exit("\nCancelled. Nothing was changed.")
+
+for d in existing:
+    shutil.rmtree(os.path.join(root, d))
 
 def rows(name):
     with open(os.path.join(R, name), encoding="utf-8") as f:

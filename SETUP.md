@@ -170,13 +170,14 @@ The project now has `profile/`, `content/` and `activity/` folders. See [README.
 
 ## Updating the data
 
+> ⚠️ **The project is a snapshot of your current LinkedIn data.** Every update deletes `profile/`, `content/` and `activity/` completely and builds them again from scratch. **All changes you made in these folders, and any files you added there, will be lost.** Keep your own files (notes, drafts, plans) in a separate folder.
+
 When you want to refresh the project with new data:
 
 1. Request and download a new Complete archive (steps 2–3).
 2. Unpack it into `raw/` next to the old one (you can delete the old one).
 3. Ask Claude: *Rebuild the project with the new archive.* — or run `python3 scripts/build.py` yourself. The script picks the newest archive.
-
-> The script overwrites `profile/`, `content/` and `activity/`. If you edited files in these folders by hand, save your edits separately before rebuilding.
+4. Confirm the rebuild. The script lists the folders that will be deleted and rebuilt, and asks `Continue? [y/N]` — type `y` and press `Enter`. To skip the question, run `python3 scripts/build.py --yes`.
 
 ---
 
